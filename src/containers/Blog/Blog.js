@@ -13,7 +13,7 @@ class Blog extends Component {
     error: false,
   }
   componentDidMount() {
-    axios.get('https://jsonplaceholder.typicode.com/posts')
+    axios.get('/posts')
       .then(res => {
         const posts = res.data.slice(0, 4);
         const updatedPosts = posts.map(post => {
@@ -25,7 +25,6 @@ class Blog extends Component {
         this.setState({ posts: updatedPosts });
       })
       .catch(err => {
-        console.log(err);
         this.setState({ error: true })
       });
   }
