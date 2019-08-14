@@ -18,7 +18,6 @@ class NewPost extends Component {
     }
     axios.post('/posts/', data)
       .then(res => {
-        console.log(res);
       });
   }
 
