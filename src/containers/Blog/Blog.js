@@ -10,6 +10,7 @@ class Blog extends Component {
   state = {
     posts: [],
     selectedPostId: null,
+    error: false,
   }
   componentDidMount() {
     axios.get('https://jsonplaceholder.typicode.com/posts')
@@ -22,6 +23,10 @@ class Blog extends Component {
           }
         })
         this.setState({ posts: updatedPosts });
+      })
+      .catch(err => {
+        console.log(err);
+        this.setState({ error: true })
       });
   }
 
@@ -30,13 +35,16 @@ class Blog extends Component {
   }
 
   render() {
-    const posts = this.state.posts.map(post => {
-      return <Post
-        key={post.id}
-        title={post.title}
-        author={post.author}
-        clicked={() => this.postClickedHandler(post.id)} />
-    })
+    let posts = <p style={{ textAlign: 'center' }}>Somthing went wrong!</p>
+    if (!this.state.error) {
+      posts = this.state.posts.map(post => {
+        return <Post
+          key={post.id}
+          title={post.title}
+          author={post.author}
+          clicked={() => this.postClickedHandler(post.id)} />
+      })
+    }
 
     return (
       <div>
